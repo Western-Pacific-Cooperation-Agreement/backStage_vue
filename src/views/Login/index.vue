@@ -23,7 +23,7 @@
 					<el-input v-model="loginForm.password" type="password"></el-input>
 				</el-form-item>
 				<el-form-item label="验证码" prop="code"  style="width: 380px;">
-					<el-input v-model="loginForm.code"  style="width: 172px; float: left" maxlength="5"></el-input>
+					<el-input v-model="loginForm.code"  style="width: 172px; float: left" maxlength="8"></el-input>
 					<el-image :src="captchaImg" class="captchaImg" @click="getCaptcha"></el-image>
 				</el-form-item>
 
@@ -90,8 +90,8 @@
 				loginForm: {
 					username: 'admin',
 					password: '111111',
-					code: '11111',
-					token: ''
+					code: '111111',
+					redisKey: ''
 				},
 				rules: {
 					username: [
@@ -102,8 +102,10 @@
 					],
 					code: [
 						{ required: true, message: '请输入验证码', trigger: 'blur' },
-						{ min: 5, max: 5, message: '长度为 5 个字符', trigger: 'blur' }
+				
 					],
+	
+	
 				},
 				captchaImg: null
 			};
@@ -113,13 +115,15 @@
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
 						this.$axios.post('/login?'+ qs.stringify(this.loginForm)).then(res => {
-
+							console.log("登入成功后的相应")
 							console.log(res)
 
 							const jwt = res.headers['authorization']
 
 							this.$store.commit('SET_TOKEN', jwt)
-							this.$router.push("/index")
+							this.$router.push("/")
+
+							console.log(localStorage[''])
 						})
 
 					} else {
@@ -132,14 +136,23 @@
 				this.$refs[formName].resetFields();
 			},
 			getCaptcha() {
+				
 				this.$axios.get('/captcha').then(res => {
 
 					console.log("/captcha")
 					console.log(res)
+					
 
-					this.loginForm.token = res.data.data.token
+					//将验证码的key给到loginform中
+					this.loginForm.redisKey = res.data.data.redisKey
+
 					this.captchaImg = res.data.data.captchaImg
-					this.loginForm.code = ''
+
+					this.loginForm.code = '111111'
+
+
+
+
 				})
 			},handleClose(){
                 this.dialogVisible= false

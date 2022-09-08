@@ -1,16 +1,21 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from './store'
+import store from './store/index'
 import ElementUI from 'element-ui'
-import axios from './axios'
+import axios from './utils/axios'
 import 'element-ui/lib/theme-chalk/index.css'
-
+import global from './utils/Auth'
 import AMap from 'vue-amap';
 import * as Echarts from 'echarts'
-Vue.prototype.$echarts = Echarts
 
+
+Vue.prototype.$echarts = Echarts
 Vue.prototype.$axios=axios
+Vue.prototype.$message = ElementUI.Message
+
+
+
 //mockjs模拟数据请求
 //require("./mock.js")
 

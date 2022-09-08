@@ -17,52 +17,54 @@
 				:tree-props="{children: 'children', hasChildren: 'hasChildren'}">
 
 			<el-table-column
-					prop="name"
+					prop="menuName"
 					label="名称"
 					sortable
 					width="180">
 			</el-table-column>
 			<el-table-column
-					prop="perms"
+					prop="menuPerms"
 					label="权限编码"
 					sortable
 					width="180">
 			</el-table-column>
 
 			<el-table-column
-					prop="icon"
+					prop="menuIcon"
 					label="图标">
 			</el-table-column>
 
 			<el-table-column
-					prop="type"
+					prop="menuType"
 					label="类型">
 				<template slot-scope="scope">
-					<el-tag size="small" v-if="scope.row.type === 0">目录</el-tag>
-					<el-tag size="small" v-else-if="scope.row.type === 1" type="success">菜单</el-tag>
-					<el-tag size="small" v-else-if="scope.row.type === 2" type="info">按钮</el-tag>
+					<el-tag size="small" v-if="scope.row.menuType === 0">目录</el-tag>
+					<el-tag size="small" v-else-if="scope.row.menuType === 1" type="success">菜单</el-tag>
+					<el-tag size="small" v-else-if="scope.row.menuType === 2" type="info">按钮</el-tag>
 				</template>
 
 			</el-table-column>
 
 			<el-table-column
-					prop="path"
+					prop="menuPath"
 					label="菜单URL">
 			</el-table-column>
+
 			<el-table-column
-					prop="component"
+					prop="menuComponent"
 					label="菜单组件">
 			</el-table-column>
+
 			<el-table-column
-					prop="orderNum"
+					prop="menuOrdernum"
 					label="排序号">
 			</el-table-column>
 			<el-table-column
-					prop="statu"
+					prop="menuStatu"
 					label="状态">
 				<template slot-scope="scope">
-					<el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
-					<el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+					<el-tag size="small" v-if="scope.row.menuStatu === 1" type="success">正常</el-tag>
+					<el-tag size="small" v-else-if="scope.row.menuStatu === 0" type="danger">禁用</el-tag>
 				</template>
 
 			</el-table-column>
@@ -98,52 +100,52 @@
 				<el-form-item label="上级菜单" prop="parentId">
 					<el-select v-model="editForm.parentId" placeholder="请选择上级菜单">
 						<template v-for="item in tableData">
-							<el-option :label="item.name" :value="item.id"></el-option>
+							<el-option :label="item.menuName" :value="item.id"></el-option>
 							<template v-for="child in item.children">
-								<el-option :label="child.name" :value="child.id">
-									<span>{{ "- " + child.name }}</span>
+								<el-option :label="child.menuName" :value="child.id">
+									<span>{{ " - " + child.menuName }}</span>
 								</el-option>
 							</template>
 						</template>
 					</el-select>
 				</el-form-item>
 
-				<el-form-item label="菜单名称" prop="name" label-width="100px">
-					<el-input v-model="editForm.name" autocomplete="off"></el-input>
+				<el-form-item label="菜单名称" prop="menuName" label-width="100px">
+					<el-input v-model="editForm.menuName" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="权限编码" prop="perms" label-width="100px">
-					<el-input v-model="editForm.perms" autocomplete="off"></el-input>
+				<el-form-item label="权限编码" prop="menuPerms" label-width="100px">
+					<el-input v-model="editForm.menuPerms" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="图标" prop="icon" label-width="100px">
-					<el-input v-model="editForm.icon" autocomplete="off"></el-input>
+				<el-form-item label="图标" prop="menuIcon" label-width="100px">
+					<el-input v-model="editForm.menuIcon" autocomplete="off"></el-input>
 				</el-form-item>
-				<el-form-item label="菜单URL" prop="path" label-width="100px">
-					<el-input v-model="editForm.path" autocomplete="off"></el-input>
-				</el-form-item>
-
-				<el-form-item label="菜单组件" prop="component" label-width="100px">
-					<el-input v-model="editForm.component" autocomplete="off"></el-input>
+				<el-form-item label="菜单URL" prop="menuPath" label-width="100px">
+					<el-input v-model="editForm.menuPath" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="类型" prop="type" label-width="100px">
-					<el-radio-group v-model="editForm.type">
+				<el-form-item label="菜单组件" prop="menuComponent" label-width="100px">
+					<el-input v-model="editForm.menuComponent" autocomplete="off"></el-input>
+				</el-form-item>
+
+				<el-form-item label="类型" prop="menuType" label-width="100px">
+					<el-radio-group v-model="editForm.menuType">
 						<el-radio :label=0>目录</el-radio>
 						<el-radio :label=1>菜单</el-radio>
 						<el-radio :label=2>按钮</el-radio>
 					</el-radio-group>
 				</el-form-item>
 
-				<el-form-item label="状态" prop="statu" label-width="100px">
-					<el-radio-group v-model="editForm.statu">
+				<el-form-item label="状态" prop="menuStatu" label-width="100px">
+					<el-radio-group v-model="editForm.menuStatu">
 						<el-radio :label=0>禁用</el-radio>
 						<el-radio :label=1>正常</el-radio>
 					</el-radio-group>
 				</el-form-item>
 
-				<el-form-item label="排序号" prop="orderNum" label-width="100px">
-					<el-input-number v-model="editForm.orderNum" :min="1" label="排序号">1</el-input-number>
+				<el-form-item label="排序号" prop="menuOrdernum" label-width="100px">
+					<el-input-number v-model="editForm.menuOrdernum" :min="1" label="排序号">1</el-input-number>
 				</el-form-item>
 
 
@@ -173,19 +175,19 @@
 					parentId: [
 						{required: true, message: '请选择上级菜单', trigger: 'blur'}
 					],
-					name: [
+					menuName: [
 						{required: true, message: '请输入名称', trigger: 'blur'}
 					],
-					perms: [
+					menuPerms: [
 						{required: true, message: '请输入权限编码', trigger: 'blur'}
 					],
-					type: [
+					menuType: [
 						{required: true, message: '请选择状态', trigger: 'blur'}
 					],
-					orderNum: [
+					menuOrdernum: [
 						{required: true, message: '请填入排序号', trigger: 'blur'}
 					],
-					statu: [
+					menuStatu: [
 						{required: true, message: '请选择状态', trigger: 'blur'}
 					]
 				},
@@ -198,6 +200,8 @@
 		methods: {
 			getMenuTree() {
 				this.$axios.get("/sys/menu/list").then(res => {
+
+					console.log(res)
 					this.tableData = res.data.data
 				})
 			},

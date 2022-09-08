@@ -2,7 +2,7 @@
     <template>
 	<div>
     <h1>活动类型列表</h1>
-		<el-form :inline="true">
+	<el-form :inline="true">
 			<el-form-item>
 				<el-input
 						v-model="searchForm.name"
@@ -41,27 +41,27 @@
 			</el-table-column>
 
 			<el-table-column
-					prop="name"
+					prop="roleName"
 					label="名称"
 					width="120">
 			</el-table-column>
 			<el-table-column
-					prop="code"
+					prop="roleCode"
 					label="唯一编码"
 					show-overflow-tooltip>
 			</el-table-column>
 			<el-table-column
-					prop="remark"
+					prop="roleRemark"
 					label="描述"
 					show-overflow-tooltip>
 			</el-table-column>
 
 			<el-table-column
-					prop="statu"
+					prop="roleStatu"
 					label="状态">
-				<template slot-scope="scope">
-					<el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
-					<el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+				<template v-slot="scope">
+					<el-tag size="small" v-if="scope.row.roleStatu === 1" type="success">正常</el-tag>
+					<el-tag size="small" v-else-if="scope.row.roleStatu === 0" type="danger">禁用</el-tag>
 				</template>
 
 			</el-table-column>
@@ -108,21 +108,21 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-				<el-form-item label="角色名称" prop="name" label-width="100px">
-					<el-input v-model="editForm.name" autocomplete="off"></el-input>
+				<el-form-item label="角色名称" prop="roleName" label-width="100px">
+					<el-input v-model="editForm.roleName" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="唯一编码" prop="code" label-width="100px">
-					<el-input v-model="editForm.code" autocomplete="off"></el-input>
+				<el-form-item label="唯一编码" prop="roleCode" label-width="100px">
+					<el-input v-model="editForm.roleCode" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="描述" prop="remark" label-width="100px">
-					<el-input v-model="editForm.remark" autocomplete="off"></el-input>
+				<el-form-item label="描述" prop="roleRemark" label-width="100px">
+					<el-input v-model="editForm.roleRemark" autocomplete="off"></el-input>
 				</el-form-item>
 
 
-				<el-form-item label="状态" prop="statu" label-width="100px">
-					<el-radio-group v-model="editForm.statu">
+				<el-form-item label="状态" prop="roleStatu" label-width="100px">
+					<el-radio-group v-model="editForm.roleStatu">
 						<el-radio :label=0>禁用</el-radio>
 						<el-radio :label=1>正常</el-radio>
 					</el-radio-group>
@@ -159,6 +159,7 @@
 			    <el-button @click="permDialogVisible = false">取 消</el-button>
 			    <el-button type="primary" @click="submitPermFormHandle('permForm')">确 定</el-button>
 			</span>
+			
 
 		</el-dialog>
 
@@ -202,15 +203,16 @@
 				permForm: {},
 				defaultProps: {
 					children: 'children',
-					label: 'name'
+					label: 'menuName'
 				},
 				permTreeData: []
 			}
 		},
 		created() {
 			this.getRoleList()
-
+			console.log("获得角色")
 			this.$axios.get('/sys/menu/list').then(res => {
+				console.log("获得菜单")
 				this.permTreeData = res.data.data
 			})
 		},
@@ -260,10 +262,13 @@
 						size: this.size
 					}
 				}).then(res => {
+				
 					this.tableData = res.data.data.records
 					this.size = res.data.data.size
 					this.current = res.data.data.current
 					this.total = res.data.data.total
+
+					console.log(this.tableData)
 				})
 			},
 
@@ -277,6 +282,7 @@
 									showClose: true,
 									message: '恭喜你，操作成功',
 									type: 'success',
+									duration:1000,
 									onClose:() => {
 										this.getRoleList()
 									}
@@ -317,6 +323,7 @@
 						showClose: true,
 						message: '恭喜你，操作成功',
 						type: 'success',
+						duration:1000,
 						onClose:() => {
 							this.getRoleList()
 						}
@@ -343,6 +350,7 @@
 						showClose: true,
 						message: '恭喜你，操作成功',
 						type: 'success',
+						duration:1000,
 						onClose:() => {
 							this.getRoleList()
 						}

@@ -52,10 +52,21 @@
 					width="120">
 			</el-table-column>
 			<el-table-column
-					prop="code"
+					prop="roles"
 					label="角色名称">
-				<template slot-scope="scope">
-					<el-tag size="small" type="info" v-for="item in scope.row.sysRoles">{{item.name}}</el-tag>
+
+
+					<template slot-scope="scope">
+					<el-tag size="small" type="info" v-for="item in scope.row.roles" >
+						
+						{{item.roleName}}
+					
+					
+					</el-tag>
+				
+				
+				
+				
 				</template>
 
 			</el-table-column>
@@ -69,20 +80,45 @@
 			</el-table-column>
 
 			<el-table-column
-					prop="statu"
+					prop="userStatu"
 					label="状态">
-				<template slot-scope="scope">
-					<el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
-					<el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
+				<template v-slot="scope">
+					<el-tag size="small" v-if="scope.row.userStatu === 1" type="success">正常</el-tag>
+					<el-tag size="small" v-else-if="scope.row.userStatu === 0" type="danger">禁用</el-tag>
 				</template>
 
 			</el-table-column>
 			<el-table-column
-					prop="created"
+					prop="assoId"
 					width="200"
-					label="创建时间"
+					label="部门id"
 			>
 			</el-table-column>
+
+			<el-table-column
+					prop="lastLogin"
+					width="200"
+					label="lastLogin"
+			>
+			</el-table-column>
+			<el-table-column
+					prop="userIntegral"
+					width="200"
+					label="积分"
+			>
+			</el-table-column>
+			<el-table-column
+					prop="userAutograph"
+					width="200"
+					label="签名"
+			>
+			</el-table-column>
+
+
+
+
+
+
 			<el-table-column
 					prop="icon"
 					width="260px"
@@ -145,8 +181,8 @@
 					<el-input v-model="editForm.phone" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="状态"  prop="statu" label-width="100px">
-					<el-radio-group v-model="editForm.statu">
+				<el-form-item label="状态"  prop="userStatu" label-width="100px">
+					<el-radio-group v-model="editForm.userStatu">
 						<el-radio :label="0">禁用</el-radio>
 						<el-radio :label="1">正常</el-radio>
 					</el-radio-group>
@@ -179,7 +215,7 @@
 				<el-button type="primary" @click="submitRoleHandle('roleForm')">确 定</el-button>
 			</div>
 		</el-dialog>
-
+	
 	</div>
 </template>
 
@@ -219,7 +255,7 @@
 				roleDialogFormVisible: false,
 				defaultProps: {
 					children: 'children',
-					label: 'name'
+					label: 'roleName'
 				},
 				roleForm: {},
 				roleTreeData:  [],
@@ -232,6 +268,7 @@
 			this.getUserList()
 
 			this.$axios.get("/sys/role/list").then(res => {
+				console.log(res);
 				this.roleTreeData = res.data.data.records
 			})
 		},
@@ -281,11 +318,14 @@
 						size: this.size
 					}
 				}).then(res => {
+					console.log("getUserList")
+					console.log(res)
 					this.tableData = res.data.data.records
 					this.size = res.data.data.size
 					this.current = res.data.data.current
 					this.total = res.data.data.total
 				})
+
 			},
 
 			submitForm(formName) {
@@ -298,6 +338,7 @@
 									showClose: true,
 									message: '恭喜你，操作成功',
 									type: 'success',
+									duration:1000,
 									onClose:() => {
 										this.getUserList()
 									}
@@ -319,7 +360,7 @@
 				})
 			},
 			delHandle(id) {
-
+				//删除用户
 				var ids = []
 
 				if (id) {
@@ -337,6 +378,7 @@
 						showClose: true,
 						message: '恭喜你，操作成功',
 						type: 'success',
+						duration:1000,
 						onClose:() => {
 							this.getUserList()
 						}
@@ -345,13 +387,14 @@
 			},
 
 			roleHandle (id) {
+				//设置了分配角色的时候能够自动导入数据
 				this.roleDialogFormVisible = true
 
 				this.$axios.get('/sys/user/info/' + id).then(res => {
 					this.roleForm = res.data.data
 
 					let roleIds = []
-					res.data.data.sysRoles.forEach(row => {
+					res.data.data.roles.forEach(row => {
 						roleIds.push(row.id)
 					})
 
@@ -359,6 +402,7 @@
 				})
 			},
 			submitRoleHandle(formName) {
+				//提交角色分配
 				var roleIds = this.$refs.roleTree.getCheckedKeys()
 
 				console.log(roleIds)
@@ -368,7 +412,9 @@
 						showClose: true,
 						message: '恭喜你，操作成功',
 						type: 'success',
+						duration:1000,
 						onClose:() => {
+							
 							this.getUserList()
 						}
 					});
@@ -377,7 +423,7 @@
 				})
 			},
 			repassHandle(id, username) {
-
+				//重置用户密码
 				this.$confirm('将重置用户【' + username + '】的密码, 是否继续?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
@@ -388,6 +434,7 @@
 							showClose: true,
 							message: '恭喜你，操作成功',
 							type: 'success',
+							duration:1000,
 							onClose: () => {
 							}
 						});
