@@ -3,13 +3,13 @@ import request from '@/utils/axios'
 
 var qs = require('qs')
 
-const BaseURL = ''//'http://localhost:18888/'
+const BaseURL = '';
 
 // 获取页面数据
 export const getPageParam = () => {
     return request({
       url: BaseURL + 'test',
-      method: 'get'
+      methods: 'get'
     })
 }
 

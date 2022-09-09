@@ -41,13 +41,13 @@
 			</el-table-column>
 
 			<el-table-column
-					prop="roleName"
-					label="名称"
+					prop="actName"
+					label="活动名称"
 					width="120">
 			</el-table-column>
 			<el-table-column
-					prop="roleCode"
-					label="唯一编码"
+					prop="actMessage"
+					label="活动信息"
 					show-overflow-tooltip>
 			</el-table-column>
 			<el-table-column
@@ -70,7 +70,7 @@
 					label="操作">
 
 				<template slot-scope="scope">
-					<el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
+					<el-button type="text" @click="permHandle(scope.row.id)">审核</el-button>
 					<el-divider direction="vertical"></el-divider>
 
 					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
@@ -167,6 +167,7 @@
 </template>
 
 <script>
+	import {getActList} from '@/api/reviewApply'
 	export default {
 		name: "Role",
 		data() {
@@ -209,14 +210,19 @@
 			}
 		},
 		created() {
-			this.getRoleList()
-			console.log("获得角色")
-			this.$axios.get('/sys/menu/list').then(res => {
-				console.log("获得菜单")
-				this.permTreeData = res.data.data
-			})
+			this.getActList()
+			
+
 		},
 		methods: {
+			getActList(){
+				getActList().then(res=>{
+				console.log("获得所有的活动")
+				console.log(res)
+				this.tableData=res.data.data;
+			})
+			}
+			,
 			toggleSelection(rows) {
 				if (rows) {
 					rows.forEach(row => {

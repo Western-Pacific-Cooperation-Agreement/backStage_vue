@@ -9,7 +9,7 @@ axios.defaults.baseURL = "http://localhost:18888"
 //模拟端口
 
 const request = axios.create({
-    timeout: 5000, //5s
+    timeout: 10000, //10s
     headers: {//请求头
         'Content-Type': 'application/json; charset=utf-8'
     }

@@ -3,7 +3,7 @@
 export function getList(params) {
   return request({
     url: '/table/list',
-    method: 'get',
+    methods: 'get',
     params
   })
 }

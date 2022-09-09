@@ -83,11 +83,11 @@ const routes = [
     },
     {
       path: '/deptType',
-      name: 'DeptType',
+      name: 'AssoType',
       meta:{
         name:'部门类型列表'
       },
-      component: () => import('../views/Manage/Main/Dept/DeptType/index.vue')
+      component: () => import('../views/Manage/Main/Asso/AssoType/index.vue')
     },
     {
       path: '/deptList',
@@ -95,7 +95,7 @@ const routes = [
       meta:{
         name:'部门类型列表'
       },
-      component: () => import('../views/Manage/Main/Dept/DeptList/index.vue')
+      component: () => import('../views/Manage/Main/Asso/AssoList/index.vue')
     },
     {
       path: '/frontStage',
