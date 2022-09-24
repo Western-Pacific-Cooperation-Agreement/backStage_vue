@@ -28,7 +28,7 @@
       <h2>努力加载中...</h2>
   </div>
 
-         <router-view v-else />
+         <router-view v-show="!isRouter" />
         </el-main>
 
       </el-container>

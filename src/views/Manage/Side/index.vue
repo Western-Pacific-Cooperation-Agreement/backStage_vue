@@ -40,7 +40,8 @@
 export default {
     data(){
       return{
-        Menus:[{
+        Menus:[
+          {
           menuName:'首页',
           menuIcon:'el-icon-location',
           menuUrl:'/',
@@ -72,10 +73,6 @@ export default {
             menuName:'审核申请活动',
             menuIcon:'el-icon-location',
             menuUrl:'/reviewApplicationActivity',
-          },{
-            menuName:'我审核的活动',
-            menuIcon:'el-icon-location',
-            menuUrl:'/myReviewActivity',
           }
         ]
         },{
@@ -106,27 +103,8 @@ export default {
             menuUrl:'/deptList',
           }
         ]
-        },{
-          menuName:'前台功能管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'管理列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/frontStage',
-          }
-        ]
-        },{
-          menuName:'后台功能管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'管理列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/backStage',
-          }
-        ]
-        },{
+        }
+        ,{
           menuName:'系统管理',
           menuIcon:'el-icon-location',
           menuUrl:'/',
@@ -146,87 +124,9 @@ export default {
             menuUrl:'/menu',
           }
         ]
-        },{
-          menuName:'系统日志',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'系统日志列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/systemLog',
-          }
-          
-        ]
-        },{
-          menuName:'推荐系统管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'推荐系统',
-            menuIcon:'el-icon-location',
-            menuUrl:'/recommend',
-          },
-          
-        ]
-        },{
-          menuName:'查询系统管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'查询系统管理',
-            menuIcon:'el-icon-location',
-            menuUrl:'/query',
-          },
-          
-        ]
-        },{
-          menuName:'深度学习管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'深度学习',
-            menuIcon:'el-icon-location',
-            menuUrl:'/deepLearning',
-          },
-          
-        ]
-        },{
-          menuName:'系统基础配置平台',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'基础配置',
-            menuIcon:'el-icon-location',
-            menuUrl:'/basicConfig',
-          },
-          
-        ]
-        },{
-          menuName:'分布式系统管理平台',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[
-          {
-            menuName:'流量分布',
-            menuIcon:'el-icon-location',
-            menuUrl:'/trafficManagement',
-          }
-            ,{
-            menuName:'服务器列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/serverList',
-          } ,{
-            menuName:'服务器状态',
-            menuIcon:'el-icon-location',
-            menuUrl:'/serverStatu',
-          },{
-            menuName:'服务器集群',
-            menuIcon:'el-icon-location',
-            menuUrl:'/serverColony',
-          }
-          
-        ]
-        },{
+        }
+        
+        ,{
           menuName:'数据字典',
           menuIcon:'el-icon-location',
           menuUrl:'/',
@@ -237,29 +137,7 @@ export default {
           }
           
         ]
-        },{
-          menuName:'数据管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'用户表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/dataBaseTable',
-          },{
-            menuName:'角色表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/dataBaseTable',
-          },{
-            menuName:'用户_角色表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/dataBaseTable',
-          },
-          
-        ]
-        }
-        
-      
-      
+        }        
       ]
 
       }

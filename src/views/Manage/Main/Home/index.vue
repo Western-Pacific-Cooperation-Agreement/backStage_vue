@@ -1,5 +1,5 @@
 <template>
-  <div>111</div>
+  <div><img :src="required('@/assets/home.jpg')" /></div>
 </template>
 
 <script>

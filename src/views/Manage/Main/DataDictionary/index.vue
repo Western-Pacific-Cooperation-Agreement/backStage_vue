@@ -1,6 +1,4 @@
-
-  
-  <template>
+<template>
     <div>
       <h1>数据字典</h1>
       <el-form :inline="true">
@@ -15,15 +13,6 @@
   
         <el-form-item>
           <el-button @click="getRoleList">搜索</el-button>
-        </el-form-item>
-  
-        <el-form-item>
-          <el-button type="primary" @click="dialogVisible = true">新增</el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-popconfirm title="这是确定批量删除吗？" @confirm="delHandle(null)">
-            <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
-          </el-popconfirm>
         </el-form-item>
       </el-form>
   
@@ -48,7 +37,7 @@
         </el-table-column>
         <el-table-column
             prop="code"
-            label="唯一编码"
+            label="系统编码"
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
@@ -56,33 +45,17 @@
             label="描述"
             show-overflow-tooltip>
         </el-table-column>
-  
         <el-table-column
-            prop="statu"
-            label="状态">
-          <template slot-scope="scope">
-            <el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
-            <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
-          </template>
-  
+            prop="remark"
+            label="用户编码"
+            show-overflow-tooltip>
         </el-table-column>
         <el-table-column
             prop="icon"
             label="操作">
   
           <template slot-scope="scope">
-            <el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
-            <el-divider direction="vertical"></el-divider>
-  
             <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
-            <el-divider direction="vertical"></el-divider>
-  
-            <template>
-              <el-popconfirm title="这是一段内容确定删除吗？" @confirm="delHandle(scope.row.id)">
-                <el-button type="text" slot="reference">删除</el-button>
-              </el-popconfirm>
-            </template>
-  
           </template>
         </el-table-column>
   
@@ -133,35 +106,13 @@
             <el-button type="primary" @click="submitForm('editForm')">立即创建</el-button>
             <el-button @click="resetForm('editForm')">重置</el-button>
           </el-form-item>
+
+          
         </el-form>
   
       </el-dialog>
   
-      <el-dialog
-          title="分配权限"
-          :visible.sync="permDialogVisible"
-          width="600px">
-  
-        <el-form :model="permForm">
-  
-          <el-tree
-              :data="permTreeData"
-              show-checkbox
-              ref="permTree"
-              :default-expand-all=true
-              node-key="id"
-              :check-strictly=true
-              :props="defaultProps">
-          </el-tree>
-  
-        </el-form>
-  
-        <span slot="footer" class="dialog-footer">
-            <el-button @click="permDialogVisible = false">取 消</el-button>
-            <el-button type="primary" @click="submitPermFormHandle('permForm')">确 定</el-button>
-        </span>
-  
-      </el-dialog>
+
   
     </div>
   </template>

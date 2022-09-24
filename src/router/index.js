@@ -57,14 +57,14 @@ const routes = [
       },
       component: () => import('../views/Manage/Main/ActivityApplicationManagement/ReviewApplicationActivity/index.vue')
     },
-    {
-      path: '/myReviewActivity',
-      name: 'MyReviewActivity',
-      meta:{
-        name:'我审核的活动'
-      },
-      component: () => import('../views/Manage/Main/ActivityApplicationManagement/MyReviewActivity/index.vue')
-    },
+    // {
+    //   path: '/myReviewActivity',
+    //   name: 'MyReviewActivity',
+    //   meta:{
+    //     name:'我审核的活动'
+    //   },
+    //   component: () => import('../views/Manage/Main/ActivityApplicationManagement/MyReviewActivity/index.vue')
+    // },
     {
       path: '/actType',
       name: 'ActType',
@@ -97,23 +97,23 @@ const routes = [
       },
       component: () => import('../views/Manage/Main/Asso/AssoList/index.vue')
     },
-    {
-      path: '/frontStage',
-      name: 'FrontStage',
-      meta:{
-        name:'前台功能管理列表'
-      },
-      component: () => import('../views/Manage/Main/FrontStage/index.vue')
-    }
-,
-    {
-      path: '/backStage',
-      name: 'BackStage',
-      meta:{
-        name:'后台功能管理列表'
-      },
-      component: () => import('../views/Manage/Main/BackStage/index.vue')
-    },    ,
+//     {
+//       path: '/frontStage',
+//       name: 'FrontStage',
+//       meta:{
+//         name:'前台功能管理列表'
+//       },
+//       component: () => import('../views/Manage/Main/FrontStage/index.vue')
+//     }
+// ,
+//     {
+//       path: '/backStage',
+//       name: 'BackStage',
+//       meta:{
+//         name:'后台功能管理列表'
+//       },
+//       component: () => import('../views/Manage/Main/BackStage/index.vue')
+//     },   
     {
       path: '/user',
       name: 'User',
@@ -139,72 +139,72 @@ const routes = [
       },
       component: () => import('../views/Manage/Main/Sys/Menu/index.vue')
     },
-    {
-      path: '/recommend',
-      name: 'Recommend',
-      meta:{
-        name:'推荐系统'
-      },
-      component: () => import('../views/Manage/Main/Recommend/index.vue')
-    },
-    {
-      path: '/query',
-      name: 'Query',
-      meta:{
-        name:'推荐系统'
-      },
-      component: () => import('../views/Manage/Main/Query/index.vue')
-    },
-    {
-      path: '/deepLearning',
-      name: 'DeepLearning',
-      meta:{
-        name:'深度学习'
-      },
-      component: () => import('../views/Manage/Main/DeepLearning/index.vue')
-    }
-    ,
-    {
-      path: '/basicConfig',
-      name: 'BasicConfig',
-      meta:{
-        name:'系统基础配置'
-      },
-      component: () => import('../views/Manage/Main/BasicConfig/index.vue')
-    },
-    {
-      path: '/trafficManagement',
-      name: 'TrafficManagement',
-      meta:{
-        name:'流量分布'
-      },
-      component: () => import('../views/Manage/Main/DistributedSystem/TrafficManagement')
-    },
-    {
-      path: '/serverList',
-      name: 'ServerList',
-      meta:{
-        name:'服务器列表'
-      },
-      component: () => import('../views/Manage/Main/DistributedSystem/ServerList/index.vue')
-    },
-    {
-      path: '/serverStatu',
-      name: 'ServerStatu',
-      meta:{
-        name:'服务器列表'
-      },
-      component: () => import('../views/Manage/Main/DistributedSystem/ServerStatu/index.vue')
-    }
-    ,
-    {
-      path: '/serverColony',
-      name: 'ServerColony',
-      meta:{
-        name:'服务器集群'
-      },
-      component: () => import('../views/Manage/Main/DistributedSystem/ServerColony/index.vue')
-    },
+    // {
+    //   path: '/recommend',
+    //   name: 'Recommend',
+    //   meta:{
+    //     name:'推荐系统'
+    //   },
+    //   component: () => import('../views/Manage/Main/Recommend/index.vue')
+    // },
+    // {
+    //   path: '/query',
+    //   name: 'Query',
+    //   meta:{
+    //     name:'推荐系统'
+    //   },
+    //   component: () => import('../views/Manage/Main/Query/index.vue')
+    // },
+    // {
+    //   path: '/deepLearning',
+    //   name: 'DeepLearning',
+    //   meta:{
+    //     name:'深度学习'
+    //   },
+    //   component: () => import('../views/Manage/Main/DeepLearning/index.vue')
+    // }
+    // ,
+    // {
+    //   path: '/basicConfig',
+    //   name: 'BasicConfig',
+    //   meta:{
+    //     name:'系统基础配置'
+    //   },
+    //   component: () => import('../views/Manage/Main/BasicConfig/index.vue')
+    // },
+    // {
+    //   path: '/trafficManagement',
+    //   name: 'TrafficManagement',
+    //   meta:{
+    //     name:'流量分布'
+    //   },
+    //   component: () => import('../views/Manage/Main/DistributedSystem/TrafficManagement')
+    // },
+    // {
+    //   path: '/serverList',
+    //   name: 'ServerList',
+    //   meta:{
+    //     name:'服务器列表'
+    //   },
+    //   component: () => import('../views/Manage/Main/DistributedSystem/ServerList/index.vue')
+    // },
+    // {
+    //   path: '/serverStatu',
+    //   name: 'ServerStatu',
+    //   meta:{
+    //     name:'服务器列表'
+    //   },
+    //   component: () => import('../views/Manage/Main/DistributedSystem/ServerStatu/index.vue')
+    // }
+    // ,
+    // {
+    //   path: '/serverColony',
+    //   name: 'ServerColony',
+    //   meta:{
+    //     name:'服务器集群'
+    //   },
+    //   component: () => import('../views/Manage/Main/DistributedSystem/ServerColony/index.vue')
+    // },
     {
       path: '/dataDictionary',
       name: 'DataDictionary',
@@ -213,22 +213,22 @@ const routes = [
       },
       component: () => import('../views/Manage/Main/DataDictionary/index.vue')
     },
-    {
-      path: '/dataBaseTable',
-      name: 'DataBaseTable',
-      meta:{
-        name:'数据管理'
-      },
-      component: () => import('../views/Manage/Main/DataBaseTable/index.vue')
-    },
-    {
-      path: '/systemLog',
-      name: 'SystemLog',
-      meta:{
-        name:'数据管理'
-      },
-      component: () => import('../views/Manage/Main/SystemLog/index.vue')
-    }
+    // {
+    //   path: '/dataBaseTable',
+    //   name: 'DataBaseTable',
+    //   meta:{
+    //     name:'数据管理'
+    //   },
+    //   component: () => import('../views/Manage/Main/DataBaseTable/index.vue')
+    // },
+    // {
+    //   path: '/systemLog',
+    //   name: 'SystemLog',
+    //   meta:{
+    //     name:'数据管理'
+    //   },
+    //   component: () => import('../views/Manage/Main/SystemLog/index.vue')
+    // }
   ]
   }
   , {

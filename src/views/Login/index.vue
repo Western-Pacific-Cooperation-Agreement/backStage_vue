@@ -7,7 +7,7 @@
             <el-card style="width: 500px;height: 500px;" id="image">
             <el-image
    style="width: 100%; height: 100%"
-   :src="require('@/assets/images/login.png')"
+   :src="require('@/assets/images/login.jpg')"
    fit="fill"
    class="tempimg"></el-image>
 </el-card>

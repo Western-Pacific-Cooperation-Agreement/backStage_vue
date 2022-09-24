@@ -41,14 +41,15 @@
 
 			<el-table-column
 					prop="roleName"
-					label="名称"
+					label="活动名称"
 					width="120">
 			</el-table-column>
 			<el-table-column
 					prop="roleCode"
-					label="唯一编码"
+					label="活动编码"
 					show-overflow-tooltip>
 			</el-table-column>
+			
 			<el-table-column
 					prop="roleRemark"
 					label="描述"
@@ -57,7 +58,7 @@
 
 			<el-table-column
 					prop="roleStatu"
-					label="状态">
+					label="活动状态">
 				<template v-slot="scope">
 					<el-tag size="small" v-if="scope.row.roleStatu === 1" type="success">正常</el-tag>
 					<el-tag size="small" v-else-if="scope.row.roleStatu === 0" type="danger">禁用</el-tag>
@@ -166,6 +167,7 @@
 </template>
 
 <script>
+	import {getMyApplyAct} from '@/api/person'
 	export default {
 		name: "Role",
 		data() {
@@ -208,7 +210,7 @@
 			}
 		},
 		created() {
-			this.getRoleList()
+			this.getActList()
 			console.log("获得角色")
 			this.$axios.get('/sys/menu/list').then(res => {
 				console.log("获得菜单")
@@ -252,9 +254,8 @@
 			handleClose() {
 				this.resetForm('editForm')
 			},
-
-			getRoleList() {
-				this.$axios.get("/sys/role/list", {
+			getActList() {
+				getMyApplyAct("/sys/role/list", {
 					params: {
 						name: this.searchForm.name,
 						current: this.current,
