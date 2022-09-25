@@ -13,7 +13,7 @@
 			</el-form-item>
 
 			<el-form-item>
-				<el-button @click="getRoleList">搜索</el-button>
+				<el-button @click="getRoleListByName">搜索</el-button>
 			</el-form-item>
 
 			<el-form-item>
@@ -31,7 +31,7 @@
 				:data="tableData"
 				tooltip-effect="dark"
 				style="width: 100%"
-				border
+				
 				stripe
 				@selection-change="handleSelectionChange">
 
@@ -41,37 +41,38 @@
 			</el-table-column>
 
 			<el-table-column
-					prop="roleName"
-					label="名称"
+					prop="assoName"
+					label="部门名称"
 					width="120">
 			</el-table-column>
 			<el-table-column
-					prop="roleCode"
-					label="唯一编码"
+					prop="assotypeId"
+					label="部门类型"
 					show-overflow-tooltip>
+					<template slot-scope="scope">
+						<el-tag v-for="item in assoTypeData" v-if="item.id==scope.row.assotypeId">
+							{{item.assoTypeName}}
+						</el-tag>
+					</template>
 			</el-table-column>
+			
 			<el-table-column
-					prop="roleRemark"
-					label="描述"
+					prop="assoNumber"
+					label="部门人数"
 					show-overflow-tooltip>
 			</el-table-column>
 
-			<el-table-column
-					prop="roleStatu"
-					label="状态">
-				<template v-slot="scope">
-					<el-tag size="small" v-if="scope.row.roleStatu === 1" type="success">正常</el-tag>
-					<el-tag size="small" v-else-if="scope.row.roleStatu === 0" type="danger">禁用</el-tag>
-				</template>
+			
 
-			</el-table-column>
+			
 			<el-table-column
 					prop="icon"
-					label="操作">
+					label="操作"
+					fixed="right">
 
 				<template slot-scope="scope">
-					<el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
-					<el-divider direction="vertical"></el-divider>
+					<!-- <el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
+					<el-divider direction="vertical"></el-divider> -->
 
 					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
 					<el-divider direction="vertical"></el-divider>
@@ -108,25 +109,34 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-				<el-form-item label="角色名称" prop="roleName" label-width="100px">
-					<el-input v-model="editForm.roleName" autocomplete="off"></el-input>
+				<el-form-item label="部门名称" prop="assoName" label-width="100px">
+					<el-input v-model="editForm.assoName" autocomplete="off"></el-input>
 				</el-form-item>
 
-				<el-form-item label="唯一编码" prop="roleCode" label-width="100px">
-					<el-input v-model="editForm.roleCode" autocomplete="off"></el-input>
+				<!-- <el-form-item label="部门类型" prop="assotypeId" label-width="100px">
+					<el-input v-model="editForm.assotypeId" autocomplete="off"></el-input>
+				</el-form-item> -->
+
+				<el-form-item label="部门类型" prop="assotypeId" label-width="100px">
+					<!-- <el-input v-model="editForm.assotypeId" autocomplete="off"></el-input> -->
+					<template>
+						<el-select v-model="editForm.assotypeId" placeholder="请选择">
+						  <el-option
+							v-for="item in assoTypeData"
+							:label="item.assoTypeName"
+							:value="item.id">
+						  </el-option>
+						</el-select>
+					</template>
+					
 				</el-form-item>
 
-				<el-form-item label="描述" prop="roleRemark" label-width="100px">
-					<el-input v-model="editForm.roleRemark" autocomplete="off"></el-input>
+				
+				  
+				<el-form-item label="部门人数" prop="assoNumber" label-width="100px">
+					<el-input v-model="editForm.assoNumber" autocomplete="off"></el-input>
 				</el-form-item>
 
-
-				<el-form-item label="状态" prop="roleStatu" label-width="100px">
-					<el-radio-group v-model="editForm.roleStatu">
-						<el-radio :label=0>禁用</el-radio>
-						<el-radio :label=1>正常</el-radio>
-					</el-radio-group>
-				</el-form-item>
 
 				<el-form-item>
 					<el-button type="primary" @click="submitForm('editForm')">立即创建</el-button>
@@ -167,11 +177,19 @@
 </template>
 
 <script>
+	import { getCoreAssoList } from '@/api/core_asso';
+	import { getCoreAssoTypeList } from '@/api/core_asso_type'
+
 	export default {
 		name: "Role",
 		data() {
 			return {
-				searchForm: {},
+				choose:[]
+				,
+				assoTypeData:[],
+				searchForm: {
+					
+				},
 				delBtlStatu: true,
 
 				total: 0,
@@ -209,14 +227,68 @@
 			}
 		},
 		created() {
-			this.getRoleList()
-			console.log("获得角色")
-			this.$axios.get('/sys/menu/list').then(res => {
-				console.log("获得菜单")
-				this.permTreeData = res.data.data
-			})
+			this.getCoreAssoTypeList();
+
+			this.getCoreAssoList()
+			this.delCoreAssoById(id)
 		},
 		methods: {
+			getCoreAssoTypeList() {
+				getCoreAssoTypeList().then(res => {
+					console.log("获得部门类型");
+					this.assoTypeData = res.data.data
+					console.log(this.assoTypeData)
+
+				})
+			},
+			getCoreAssoList(){
+				getCoreAssoList().then(res=>{
+					this.tableData=res.data.data;
+				})
+			},
+			delCoreAssoById(id){
+				delCoreAssoById(id).then(
+					this.getCoreAssoList
+				)
+			},
+
+			getRoleListByName(){
+				
+				if(this.searchForm.name!=null&&this.searchForm.name!=""){
+					console.log(111)
+					this.$axios.post("/coreAsso/getCoreAssoByName",(this.searchForm.name))
+					.then(res=>{
+						this.tableData=res.data.data;
+					}
+					)
+				}else{
+					console.log(222)
+					this.$axios.get("/coreAsso/findAll")
+					.then(res=>(
+						this.tableData=res.data.data
+					))
+				}
+			},
+			// getRoleList() {
+			// 	this.$axios.get("/sys/role/list", {
+			// 		params: {
+			// 			name: this.searchForm.name,
+			// 			current: this.current,
+			// 			size: this.size
+			// 		}
+			// 	}).then(res => {
+				
+			// 		this.tableData = res.data.data.records
+			// 		this.size = res.data.data.size
+			// 		this.current = res.data.data.current
+			// 		this.total = res.data.data.total
+
+			// 		console.log(this.tableData)
+			// 	})
+			// },
+		
+
+
 			toggleSelection(rows) {
 				if (rows) {
 					rows.forEach(row => {
@@ -254,28 +326,12 @@
 				this.resetForm('editForm')
 			},
 
-			getRoleList() {
-				this.$axios.get("/sys/role/list", {
-					params: {
-						name: this.searchForm.name,
-						current: this.current,
-						size: this.size
-					}
-				}).then(res => {
-				
-					this.tableData = res.data.data.records
-					this.size = res.data.data.size
-					this.current = res.data.data.current
-					this.total = res.data.data.total
-
-					console.log(this.tableData)
-				})
-			},
+			
 
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.$axios.post('/sys/role/' + (this.editForm.id?'update' : 'save'), this.editForm)
+						this.$axios.post('/coreAsso/' + (this.editForm.id?'updateCoreAsso' : 'addCoreAsso'), this.editForm)
 							.then(res => {
 
 								this.$message({
@@ -284,7 +340,7 @@
 									type: 'success',
 									duration:1000,
 									onClose:() => {
-										this.getRoleList()
+										this.getCoreAssoList()
 									}
 								});
 
@@ -298,12 +354,22 @@
 				});
 			},
 			editHandle(id) {
-				this.$axios.get('/sys/role/info/' + id).then(res => {
+				this.$axios.get('/coreAsso/getAsso/'+id).then(res => {
 					this.editForm = res.data.data
-
 					this.dialogVisible = true
+
+					// this.$message({
+					// 	showClose: true,
+					// 	message: '恭喜你，操作成功',
+					// 	type: 'success',
+					// 	duration:1000,
+					// 	onClose:() => {
+					// 		this.getCoreAssoList()
+					// 	}
+					// });
 				})
 			},
+
 			delHandle(id) {
 
 				var ids = []
@@ -316,16 +382,17 @@
 					})
 				}
 
+				console.log(1)
 				console.log(ids)
 
-				this.$axios.post("/sys/role/delete", ids).then(res => {
+				this.$axios.post("/coreAsso/delById", ids).then(res => {
 					this.$message({
 						showClose: true,
 						message: '恭喜你，操作成功',
 						type: 'success',
 						duration:1000,
 						onClose:() => {
-							this.getRoleList()
+							this.getCoreAssoList()
 						}
 					});
 				})
@@ -368,6 +435,14 @@
 	.el-pagination {
 		float: right;
 		margin-top: 22px;
+	}
+
+	.el-dropdown-link {
+		cursor: pointer;
+		color: #409EFF;
+	}
+	.el-icon-arrow-down {
+		font-size: 12px;
 	}
 
 </style>

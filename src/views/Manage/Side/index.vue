@@ -55,15 +55,13 @@ export default {
           menuName:'活动负责管理',
           menuIcon:'el-icon-location',
           menuUrl:'',
-          children:[{
+          children:[
+            
+          {
             menuName:'管理我的活动',
             menuIcon:'el-icon-location',
             menuUrl:'/manageMyActivity',
-          },{
-            menuName:'审核报名',
-            menuIcon:'el-icon-location',
-            menuUrl:'/reviewRegistration',
-          }
+          },
         ]
         },{
           menuName:'活动申请管理',
@@ -75,21 +73,9 @@ export default {
             menuUrl:'/reviewApplicationActivity',
           }
         ]
-        },{
-          menuName:'活动管理',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'活动类型列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/actType',
-          },{
-            menuName:'活动列表',
-            menuIcon:'el-icon-location',
-            menuUrl:'/actList',
-          }
-        ]
-        },{
+        },
+        
+        {
           menuName:'部门管理',
           menuIcon:'el-icon-location',
           menuUrl:'/',

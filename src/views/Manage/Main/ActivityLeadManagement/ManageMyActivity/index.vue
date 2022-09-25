@@ -64,7 +64,7 @@
 			<el-table-column
 					prop="actUrl"
 					label="宣传海报"
-					width="500"
+					width="300"
 					>
 
 					<template slot-scope="scope">
@@ -207,7 +207,7 @@
 
 					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
 					<el-divider direction="vertical"></el-divider>
-					<el-button type="text" @click="managgeAct(scope.row.id)">管理报名</el-button>
+					<el-button type="text" @click="manageAct(scope.row.id)">管理报名</el-button>
 					
 					<el-divider direction="vertical"></el-divider>
 					<el-button type="text" @click="editHandle(scope.row.id)">打印活动申请表</el-button>
@@ -326,6 +326,7 @@
 					<el-button type="primary" @click="submitForm('editForm')">立即创建</el-button>
 					<el-button @click="resetForm('editForm')">重置</el-button>
 				</el-form-item>
+				
 			</el-form>
 
 		</el-dialog>
@@ -396,6 +397,14 @@
 				console.log("获得角色")
 			},
 			methods: {
+				manageAct(id){
+					      //传递的参数不会拼接在跳转的后面。使用this.route.query.key取值
+     
+						  this.$router.push({path: '/reviewRegistration',query: {'id':id}});
+
+					//传递的参数会拼接在跳转地址的后面。使用this.route.params.key取值
+					//this.$router.push({name: 'ActivityInfo',params: {actId:id}});
+				},
 				getActAsso(){
 					getActAsso().then(res=>{
 						console.log("获得活动部门")
@@ -538,5 +547,8 @@
 	.el-pagination {
 		float: right;
 		margin-top: 22px;
+	}
+	.image{
+		width: 200px;
 	}
 </style>
