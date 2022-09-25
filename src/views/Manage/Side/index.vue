@@ -4,7 +4,6 @@
           <el-col :span="12">
             <h5>大学生活动后台管理系统</h5>
             <el-menu 
-     
             class="el-menu-vertical-demo"
              @open="handleOpen()" 
              @close="handleClose()"
