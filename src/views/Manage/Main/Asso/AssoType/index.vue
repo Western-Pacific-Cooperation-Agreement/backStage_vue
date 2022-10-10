@@ -39,13 +39,8 @@
 					width="55">
 			</el-table-column>
 			<el-table-column
-			prop="id"
-			label="活动类型id"
-			width="120">
-	</el-table-column>
-			<el-table-column
 					prop="assoTypeName"
-					label="活动类型名称"
+					label="部门类型名称"
 					width="120">
 			</el-table-column>
 			<el-table-column
@@ -61,8 +56,7 @@
 					label="操作">
 
 				<template slot-scope="scope">
-					<!-- <el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
-					<el-divider direction="vertical"></el-divider> -->
+			
 
 					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
 					<el-divider direction="vertical"></el-divider>

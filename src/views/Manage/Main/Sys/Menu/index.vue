@@ -13,7 +13,7 @@
 				row-key="id"
 				border
 				stripe
-				default-expand-all
+				
 				:tree-props="{children: 'children', hasChildren: 'hasChildren'}">
 
 			<el-table-column

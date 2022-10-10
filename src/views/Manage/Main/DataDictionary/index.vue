@@ -36,7 +36,7 @@
             width="120">
         </el-table-column>
         <el-table-column
-            prop="code"
+            prop="syscode"
             label="系统编码"
             show-overflow-tooltip>
         </el-table-column>
@@ -46,7 +46,7 @@
             show-overflow-tooltip>
         </el-table-column>
         <el-table-column
-            prop="remark"
+            prop="usercode"
             label="用户编码"
             show-overflow-tooltip>
         </el-table-column>
@@ -82,25 +82,23 @@
   
         <el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
   
-          <el-form-item label="角色名称" prop="name" label-width="100px">
-            <el-input v-model="editForm.name" autocomplete="off"></el-input>
+          <el-form-item label="名称" prop="name" label-width="100px">
+            <el-input v-model="editForm.name" autocomplete="off" disabled="true"></el-input>
           </el-form-item>
   
-          <el-form-item label="唯一编码" prop="code" label-width="100px">
-            <el-input v-model="editForm.code" autocomplete="off"></el-input>
+          <el-form-item label="系统编码" prop="syscode" label-width="100px">
+            <el-input v-model="editForm.syscode" autocomplete="off" disabled="true"></el-input>
           </el-form-item>
-  
+          
+          
           <el-form-item label="描述" prop="remark" label-width="100px">
-            <el-input v-model="editForm.remark" autocomplete="off"></el-input>
+            <el-input v-model="editForm.remark" autocomplete="off" disabled="true"></el-input>
+          </el-form-item>
+          
+          <el-form-item label="用户编码" prop="usercode" label-width="100px">
+            <el-input v-model="editForm.usercode" autocomplete="off"></el-input>
           </el-form-item>
   
-  
-          <el-form-item label="状态" prop="statu" label-width="100px">
-            <el-radio-group v-model="editForm.statu">
-              <el-radio :label=0>禁用</el-radio>
-              <el-radio :label=1>正常</el-radio>
-            </el-radio-group>
-          </el-form-item>
   
           <el-form-item>
             <el-button type="primary" @click="submitForm('editForm')">立即创建</el-button>
@@ -162,7 +160,7 @@
       created() {
         this.getRoleList()
   
-        this.$axios.get('/sys/menu/list').then(res => {
+        this.$axios.get('/sys/dict/list').then(res => {
           this.permTreeData = res.data.data
         })
       },
@@ -205,7 +203,7 @@
         },
   
         getRoleList() {
-          this.$axios.get("/sys/role/list", {
+          this.$axios.get("/sys/dict/list", {
             params: {
               name: this.searchForm.name,
               current: this.current,
@@ -222,7 +220,7 @@
         submitForm(formName) {
           this.$refs[formName].validate((valid) => {
             if (valid) {
-              this.$axios.post('/sys/role/' + (this.editForm.id?'update' : 'save'), this.editForm)
+              this.$axios.post('/sys/dict/' + (this.editForm.id?'update' : 'save'), this.editForm)
                 .then(res => {
   
                   this.$message({
@@ -244,7 +242,7 @@
           });
         },
         editHandle(id) {
-          this.$axios.get('/sys/role/info/' + id).then(res => {
+          this.$axios.get('/sys/dict/info/' + id).then(res => {
             this.editForm = res.data.data
   
             this.dialogVisible = true
@@ -264,7 +262,7 @@
   
           console.log(ids)
   
-          this.$axios.post("/sys/role/delete", ids).then(res => {
+          this.$axios.post("/sys/dict/delete", ids).then(res => {
             this.$message({
               showClose: true,
               message: '恭喜你，操作成功',
@@ -278,7 +276,7 @@
         permHandle(id) {
           this.permDialogVisible = true
   
-          this.$axios.get("/sys/role/info/" + id).then(res => {
+          this.$axios.get("/sys/dict/info/" + id).then(res => {
   
             this.$refs.permTree.setCheckedKeys(res.data.data.menuIds)
             this.permForm = res.data.data
@@ -290,7 +288,7 @@
   
           console.log(menuIds)
   
-          this.$axios.post('/sys/role/perm/' + this.permForm.id, menuIds).then(res => {
+          this.$axios.post('/sys/dict/perm/' + this.permForm.id, menuIds).then(res => {
             this.$message({
               showClose: true,
               message: '恭喜你，操作成功',

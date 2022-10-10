@@ -88,12 +88,12 @@
 				</template>
 
 			</el-table-column>
-			<el-table-column
+			<!-- <el-table-column
 					prop="assoId"
 					width="200"
 					label="部门id"
 			>
-			</el-table-column>
+			</el-table-column> -->
 
 			<el-table-column
 					prop="lastLogin"

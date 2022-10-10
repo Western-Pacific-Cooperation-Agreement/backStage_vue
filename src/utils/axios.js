@@ -41,7 +41,11 @@ request.interceptors.response.use(
 		}
 	},
 	error => {
-
+		if (error.response.status === 401) {
+			console.log("401");
+			localStorage.setItem("token","")
+			router.push("/login")
+		}
 		console.log(error)
 
 		if (error.response.data) {

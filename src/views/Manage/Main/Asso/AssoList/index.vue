@@ -57,8 +57,8 @@
 			</el-table-column>
 			
 			<el-table-column
-					prop="assoNumber"
-					label="部门人数"
+					prop="remark"
+					label="备注"
 					show-overflow-tooltip>
 			</el-table-column>
 
@@ -71,8 +71,7 @@
 					fixed="right">
 
 				<template slot-scope="scope">
-					<!-- <el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
-					<el-divider direction="vertical"></el-divider> -->
+
 
 					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
 					<el-divider direction="vertical"></el-divider>
@@ -133,8 +132,8 @@
 
 				
 				  
-				<el-form-item label="部门人数" prop="assoNumber" label-width="100px">
-					<el-input v-model="editForm.assoNumber" autocomplete="off"></el-input>
+				<el-form-item label="部门人数" prop="remark" label-width="100px">
+					<el-input v-model="editForm.remark" autocomplete="off"></el-input>
 				</el-form-item>
 
 
@@ -146,32 +145,7 @@
 
 		</el-dialog>
 
-		<el-dialog
-				title="分配权限"
-				:visible.sync="permDialogVisible"
-				width="600px">
 
-			<el-form :model="permForm">
-
-				<el-tree
-						:data="permTreeData"
-						show-checkbox
-						ref="permTree"
-						:default-expand-all=true
-						node-key="id"
-						:check-strictly=true
-						:props="defaultProps">
-				</el-tree>
-
-			</el-form>
-
-			<span slot="footer" class="dialog-footer">
-			    <el-button @click="permDialogVisible = false">取 消</el-button>
-			    <el-button type="primary" @click="submitPermFormHandle('permForm')">确 定</el-button>
-			</span>
-			
-
-		</el-dialog>
 
 	</div>
 </template>
@@ -269,25 +243,6 @@
 					))
 				}
 			},
-			// getRoleList() {
-			// 	this.$axios.get("/sys/role/list", {
-			// 		params: {
-			// 			name: this.searchForm.name,
-			// 			current: this.current,
-			// 			size: this.size
-			// 		}
-			// 	}).then(res => {
-				
-			// 		this.tableData = res.data.data.records
-			// 		this.size = res.data.data.size
-			// 		this.current = res.data.data.current
-			// 		this.total = res.data.data.total
-
-			// 		console.log(this.tableData)
-			// 	})
-			// },
-		
-
 
 			toggleSelection(rows) {
 				if (rows) {
@@ -325,9 +280,6 @@
 			handleClose() {
 				this.resetForm('editForm')
 			},
-
-			
-
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
@@ -358,15 +310,6 @@
 					this.editForm = res.data.data
 					this.dialogVisible = true
 
-					// this.$message({
-					// 	showClose: true,
-					// 	message: '恭喜你，操作成功',
-					// 	type: 'success',
-					// 	duration:1000,
-					// 	onClose:() => {
-					// 		this.getCoreAssoList()
-					// 	}
-					// });
 				})
 			},
 

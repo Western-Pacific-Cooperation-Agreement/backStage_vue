@@ -11,17 +11,19 @@
               text-color="#fff" 
               active-text-color="grey"
               >          
-     <el-submenu  :index="String(keys)" v-for="(items,keys) in Menus" :key="keys">
+     <el-submenu  :index="String(keys)" v-for="(items,keys) in menuList" :key="keys">
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>{{items.menuName}}</span>
+          <i :class="items.icon"></i>
+          <span>{{items.title}}</span>
         </template>
    
         <el-menu-item-group>
 
 
-          <router-link :to="item.menuUrl" v-for="(item,key) in items.children" :key="key">
-          <el-menu-item :index="keys+'-'+key">{{item.menuName}}</el-menu-item>
+          <router-link :to="item.path" v-for="(item,key) in items.children" :key="key">
+    
+
+          <el-menu-item :index="keys+'-'+key">    <i :class="item.icon"></i>{{item.title}}</el-menu-item>
           </router-link>
 
 
@@ -39,18 +41,9 @@
 export default {
     data(){
       return{
+        
         Menus:[
-          {
-          menuName:'首页',
-          menuIcon:'el-icon-location',
-          menuUrl:'/',
-          children:[{
-            menuName:'首页展示',
-            menuIcon:'el-icon-location',
-            menuUrl:'/',
-          },
-        ]
-        },{
+         {
           menuName:'活动负责管理',
           menuIcon:'el-icon-location',
           menuUrl:'',
@@ -90,7 +83,7 @@ export default {
         ]
         }
         ,{
-          menuName:'系统管理',
+          menuName:'权限管理',
           menuIcon:'el-icon-location',
           menuUrl:'/',
           children:[{
@@ -109,14 +102,37 @@ export default {
             menuUrl:'/menu',
           }
         ]
-        }
-        
-        ,{
-          menuName:'数据字典',
+        },{
+          menuName:'打印管理',
           menuIcon:'el-icon-location',
           menuUrl:'/',
           children:[{
-            menuName:'数据字典列表',
+            menuName:'文件列表',
+            menuIcon:'el-icon-location',
+            menuUrl:'/file',
+          }
+          
+        ]
+        }
+        ,{
+          menuName:'备份管理',
+          menuIcon:'el-icon-location',
+          menuUrl:'/',
+          children:[{
+            menuName:'备份列表',
+            menuIcon:'el-icon-location',
+            menuUrl:'/dataDictionary',
+          }
+          
+        ]
+        }   
+        
+        ,{
+          menuName:'系统工具',
+          menuIcon:'el-icon-location',
+          menuUrl:'/',
+          children:[{
+            menuName:'数据字典',
             menuIcon:'el-icon-location',
             menuUrl:'/dataDictionary',
           }
@@ -127,7 +143,20 @@ export default {
 
       }
     },
-    
+    computed:  {
+			menuList: {
+				set(val){
+					this.$store.state.menus.menuList=val
+				},
+				get() {
+					return this.$store.state.menus.menuList
+				}
+			}
+		},
+    created(){
+      console.log("活动用户菜单的列表")
+      console.log(this.$store.state);
+    }
 }
 </script>
 
