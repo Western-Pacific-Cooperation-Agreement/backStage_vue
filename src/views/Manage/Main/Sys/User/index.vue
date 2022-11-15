@@ -165,7 +165,7 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm">
 				<el-form-item label="用户名" prop="username" label-width="100px">
-					<el-input v-model="editForm.username" autocomplete="off"></el-input>
+					<el-input v-model="editForm.username" autocomplete="off" :disabled="!hasAuth('sys:user:save:username')"></el-input>
 					<el-alert
 							title="初始密码为888888"
 							:closable="false"
@@ -175,10 +175,10 @@
 				</el-form-item>
 
 				<el-form-item label="邮箱"  prop="email" label-width="100px">
-					<el-input v-model="editForm.email" autocomplete="off"></el-input>
+					<el-input v-model="editForm.email" autocomplete="off" :disabled="!hasAuth('sys:user:save:email')"></el-input>
 				</el-form-item>
 				<el-form-item label="手机号"  prop="phone" label-width="100px">
-					<el-input v-model="editForm.phone" autocomplete="off"></el-input>
+					<el-input v-model="editForm.phone" autocomplete="off" :disabled="!hasAuth('sys:user:save:phone')"></el-input>
 				</el-form-item>
 
 				<el-form-item label="状态"  prop="userStatu" label-width="100px">

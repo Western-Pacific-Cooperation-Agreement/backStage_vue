@@ -1,7 +1,6 @@
 <template>
 	<div>
-    <h1>审核报名</h1>
-	<el-form :inline="true">
+		<el-form :inline="true">
 			<el-form-item>
 				<el-input
 						v-model="searchForm.username"
@@ -40,90 +39,108 @@
 			</el-table-column>
 
 			<el-table-column
-
 					label="头像"
 					width="50">
 				<template slot-scope="scope">
-					<el-avatar size="small" :src="scope.row.sysUser.avatar"></el-avatar>
+					<el-avatar size="small" :src="scope.row.avatar"></el-avatar>
 				</template>
 			</el-table-column>
 
 			<el-table-column
-					prop="sysUser.username"
+					prop="username"
 					label="用户名"
 					width="120">
 			</el-table-column>
 			<el-table-column
-					prop="sysUser.roles"
+					prop="roles"
 					label="角色名称">
 
 
 					<template slot-scope="scope">
-					<el-tag size="small" type="info" v-for="item in scope.row.sysUser.roles" >
+					<el-tag size="small" type="info" v-for="item in scope.row.roles" >
+						
 						{{item.roleName}}
+					
+					
 					</el-tag>
+				
+				
+				
 				
 				</template>
 
 			</el-table-column>
 			<el-table-column
-					prop="sysUser.email"
+					prop="email"
 					label="邮箱">
 			</el-table-column>
 			<el-table-column
-					prop="sysUser.phone"
+					prop="phone"
 					label="手机号">
 			</el-table-column>
 
 			<el-table-column
-					prop="coreUserAct.userActCreateTime"
-					width="200"
-					label="报名时间"
-			>
-			</el-table-column>
-			<el-table-column
-					prop="coreUserAct.userActStatu"
-					width="200"
-					label="审核状态"
-			>
-			<template slot-scope="scope">
-				<el-tag v-if="scope.row.coreUserAct.userActStatu===0">
-          未审核报名
-        </el-tag>
-        <el-tag  type="success"  v-if="scope.row.coreUserAct.userActStatu===1">
-          报名通过
-        </el-tag>
-        <el-tag  type="danger"  v-if="scope.row.coreUserAct.userActStatu===2">
-          报名未通过
-        </el-tag>
-        <el-tag  type="danger"  v-if="scope.row.coreUserAct.userActStatu===3">
-          存档
-        </el-tag>
-			</template>
+					prop="userStatu"
+					label="状态">
+				<template v-slot="scope">
+					<el-tag size="small" v-if="scope.row.userStatu === 1" type="success">正常</el-tag>
+					<el-tag size="small" v-else-if="scope.row.userStatu === 0" type="danger">禁用</el-tag>
+				</template>
 
 			</el-table-column>
-			<el-table-column
-					prop="coreUserAct.userActReview"
+			<!-- <el-table-column
+					prop="assoId"
 					width="200"
-					label="审核回复"
+					label="部门id"
+			>
+			</el-table-column> -->
+
+			<el-table-column
+					prop="lastLogin"
+					width="200"
+					label="lastLogin"
 			>
 			</el-table-column>
 			<el-table-column
-					prop="coreUserAct.userActReviewDate"
+					prop="userIntegral"
 					width="200"
-					label="审核时间"
+					label="积分"
 			>
 			</el-table-column>
+			<el-table-column
+					prop="userAutograph"
+					width="200"
+					label="签名"
+			>
+			</el-table-column>
+
+
+
 
 
 
 			<el-table-column
 					prop="icon"
-					width="100px"
+					width="260px"
 					label="操作">
 
 				<template slot-scope="scope">
-					<el-button type="text" @click="editHandle(scope.row.coreUserAct.id)">审核</el-button></template>
+					<el-button type="text" @click="roleHandle(scope.row.id)">分配角色</el-button>
+					<el-divider direction="vertical"></el-divider>
+
+					<el-button type="text" @click="repassHandle(scope.row.id, scope.row.username)">重置密码</el-button>
+					<el-divider direction="vertical"></el-divider>
+
+					<el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
+					<el-divider direction="vertical"></el-divider>
+
+					<template>
+						<el-popconfirm title="这是一段内容确定删除吗？" @confirm="delHandle(scope.row.id)">
+							<el-button type="text" slot="reference">删除</el-button>
+						</el-popconfirm>
+					</template>
+
+				</template>
 			</el-table-column>
 
 		</el-table>
@@ -147,18 +164,28 @@
 				:before-close="handleClose">
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm">
-			
-
-		
-
-				<el-form-item label="审核状态"  prop="userActStatu" label-width="100px">
-					<el-radio-group v-model="editForm.userActStatu">
-						<el-radio :label="1">通过</el-radio>
-						<el-radio :label="2">不通过</el-radio>
-					</el-radio-group>
+				<el-form-item label="用户名" prop="username" label-width="100px">
+					<el-input v-model="editForm.username" autocomplete="off"></el-input>
+					<el-alert
+							title="初始密码为888888"
+							:closable="false"
+							type="info"
+							style="line-height: 12px;"
+					></el-alert>
 				</el-form-item>
-				<el-form-item label="审核回复" prop="userActReview" label-width="100px">
-					<el-input v-model="editForm.userActReview"  autosize></el-input>
+
+				<el-form-item label="邮箱"  prop="email" label-width="100px">
+					<el-input v-model="editForm.email" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="手机号"  prop="phone" label-width="100px">
+					<el-input v-model="editForm.phone" autocomplete="off"></el-input>
+				</el-form-item>
+
+				<el-form-item label="状态"  prop="userStatu" label-width="100px">
+					<el-radio-group v-model="editForm.userStatu">
+						<el-radio :label="0">禁用</el-radio>
+						<el-radio :label="1">正常</el-radio>
+					</el-radio-group>
 				</el-form-item>
 
 			</el-form>
@@ -168,7 +195,26 @@
 			</div>
 		</el-dialog>
 
-		
+		<!-- 分配权限对话框 -->
+		<el-dialog title="分配角色" :visible.sync="roleDialogFormVisible" width="600px">
+
+			<el-form :model="roleForm">
+				<el-tree
+						:data="roleTreeData"
+						show-checkbox
+						ref="roleTree"
+						:check-strictly=checkStrictly
+						node-key="id"
+						:default-expand-all=true
+						:props="defaultProps">
+				</el-tree>
+			</el-form>
+
+			<div slot="footer" class="dialog-footer">
+				<el-button @click="roleDialogFormVisible=false">取 消</el-button>
+				<el-button type="primary" @click="submitRoleHandle('roleForm')">确 定</el-button>
+			</div>
+		</el-dialog>
 	
 	</div>
 </template>
@@ -207,9 +253,13 @@
 				multipleSelection: [],
 
 				roleDialogFormVisible: false,
-		
+				defaultProps: {
+					children: 'children',
+					label: 'roleName'
+				},
 				roleForm: {},
 				roleTreeData:  [],
+				treeCheckedKeys: [],
 				checkStrictly: true
 
 			}
@@ -261,7 +311,7 @@
 			},
 
 			getUserList() {
-				this.$axios.get("/userAct/get/actSignUpByActId/"+this.$route.query.id, {
+				this.$axios.get("/sys/user/list", {
 					params: {
 						username: this.searchForm.username,
 						current: this.current,
@@ -281,7 +331,9 @@
 			submitForm(formName) {
 				this.$refs[formName].validate((valid) => {
 					if (valid) {
-						this.$axios.post(('/userAct/post/reviewSignUp'), this.editForm ).then(res => {
+						this.$axios.post('/sys/user/' + (this.editForm.id?'update' : 'save'), this.editForm)
+							.then(res => {
+
 								this.$message({
 									showClose: true,
 									message: '恭喜你，操作成功',
@@ -301,8 +353,9 @@
 				});
 			},
 			editHandle(id) {
-				this.$axios.get('/userAct/get/editInfo/' + id).then(res => {
+				this.$axios.get('/sys/user/info/' + id).then(res => {
 					this.editForm = res.data.data
+
 					this.dialogVisible = true
 				})
 			},
@@ -369,7 +422,25 @@
 					this.roleDialogFormVisible = false
 				})
 			},
-			
+			repassHandle(id, username) {
+				//重置用户密码
+				this.$confirm('将重置用户【' + username + '】的密码, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$axios.post("/sys/user/repass", id).then(res => {
+						this.$message({
+							showClose: true,
+							message: '恭喜你，操作成功',
+							type: 'success',
+							duration:1000,
+							onClose: () => {
+							}
+						});
+					})
+				})
+			}
 		}
 	}
 </script>

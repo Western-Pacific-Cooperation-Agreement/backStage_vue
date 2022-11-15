@@ -41,8 +41,6 @@
 					<el-tag size="small" v-if="scope.row.menuType === 0">目录</el-tag>
 					<el-tag size="small" v-else-if="scope.row.menuType === 1" type="success">菜单</el-tag>
 					<el-tag size="small" v-else-if="scope.row.menuType === 2" type="info">按钮</el-tag>
-					<el-tag size="small" v-else-if="scope.row.menuType === 3" type="info">域</el-tag>
-
 				</template>
 
 			</el-table-column>
@@ -107,11 +105,6 @@
 								<el-option :label="child.menuName" :value="child.id">
 									<span>{{ " - " + child.menuName }}</span>
 								</el-option>
-								<template v-for="c in child.children">
-								<el-option :label="c.menuName" :value="c.id">
-									<span>{{ " -- " + c.menuName }}</span>
-								</el-option>
-								</template>
 							</template>
 						</template>
 					</el-select>
@@ -141,8 +134,6 @@
 						<el-radio :label=0>目录</el-radio>
 						<el-radio :label=1>菜单</el-radio>
 						<el-radio :label=2>按钮</el-radio>
-						<el-radio :label=3>域</el-radio>
-
 					</el-radio-group>
 				</el-form-item>
 
