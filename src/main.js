@@ -4,7 +4,7 @@ import router from './router'
 import store from './store/index'
 import ElementUI from 'element-ui'
 import axios from './utils/axios'
-import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/index.css' 
 import global from './utils/Auth'
 import AMap from 'vue-amap';
 import * as Echarts from 'echarts'
