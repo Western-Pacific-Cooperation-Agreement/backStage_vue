@@ -107,20 +107,20 @@
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
 				<el-form-item label="角色名称" prop="roleName" label-width="100px">
-					<el-input v-model="editForm.roleName" autocomplete="off"></el-input>
+					<el-input v-model="editForm.roleName" autocomplete="off" :disabled="!hasAuth('sys:role:save:roleName')"></el-input>
 				</el-form-item>
 
 				<el-form-item label="唯一编码" prop="roleCode" label-width="100px">
-					<el-input v-model="editForm.roleCode" autocomplete="off"></el-input>
+					<el-input v-model="editForm.roleCode" autocomplete="off" :disabled="!hasAuth('sys:role:save:roleCode')"></el-input>
 				</el-form-item>
 
 				<el-form-item label="描述" prop="roleRemark" label-width="100px">
-					<el-input v-model="editForm.roleRemark" autocomplete="off"></el-input>
+					<el-input v-model="editForm.roleRemark" autocomplete="off" :disabled="!hasAuth('sys:role:save:roleRemark')"></el-input>
 				</el-form-item>
 
 
-				<el-form-item label="状态" prop="roleStatu" label-width="100px">
-					<el-radio-group v-model="editForm.roleStatu">
+				<el-form-item label="状态" prop="roleStatu" label-width="100px" >
+					<el-radio-group v-model="editForm.roleStatu" :disabled="!hasAuth('sys:role:save:roleStatu')">
 						<el-radio :label=0>禁用</el-radio>
 						<el-radio :label=1>正常</el-radio>
 					</el-radio-group>

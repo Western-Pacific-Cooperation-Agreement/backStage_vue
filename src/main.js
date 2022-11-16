@@ -19,15 +19,15 @@ Vue.prototype.$message = ElementUI.Message
 //mockjs模拟数据请求
 //require("./mock.js")
 
-Vue.use(AMap);
+// Vue.use(AMap);
  
-  // 初始化vue-amap
-AMap.initAMapApiLoader({
-  // 高德key
-  key: '你的key',
-  // 插件集合 （插件按需引入）
-  plugin: ['AMap.Geolocation']
-});
+//   // 初始化vue-amap
+// AMap.initAMapApiLoader({
+//   // 高德key
+//   key: '你的key',
+//   // 插件集合 （插件按需引入）
+//   plugin: ['AMap.Geolocation']
+// });
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

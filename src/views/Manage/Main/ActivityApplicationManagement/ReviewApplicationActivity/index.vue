@@ -247,11 +247,11 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-				<el-form-item label="活动名称" prop="actName" label-width="100px">
-					<el-input v-model="editForm.actName" autocomplete="off"></el-input>
+				<el-form-item label="活动名称" prop="actName" label-width="100px"  >
+					<el-input v-model="editForm.actName" autocomplete="off" :disabled="!hasAuth('sys:core:save:actName')"></el-input>
 				</el-form-item>
-				<el-form-item label="宣传海报" prop="actUrl" label-width="100px">
-					<el-input v-model="editForm.actUrl" autocomplete="off"></el-input>
+				<el-form-item label="宣传海报" prop="actUrl" label-width="100px" >
+					<el-input v-model="editForm.actUrl" autocomplete="off" :disabled="!hasAuth('sys:core:save:actUrl')"></el-input>
 										<el-upload
 					class="upload-demo"
 					action="https://jsonplaceholder.typicode.com/posts/"
@@ -267,28 +267,28 @@
 					</el-upload>
 				</el-form-item>
 				
-				<el-form-item label="活动性质" prop="actNatureId" label-width="100px">
-					<el-select v-model="editForm.actNatureId" placeholder="请选择活动性质">
+				<el-form-item label="活动性质" prop="actNatureId" label-width="100px" >
+					<el-select v-model="editForm.actNatureId" placeholder="请选择活动性质" :disabled="!hasAuth('sys:core:save:actNatureId')">
 						<el-option v-for="item in actActType" :key="item.id" :label="item.actNatureName" :value="item.id">
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="活动区域" prop="actPlace" label-width="100px">
-					<el-input v-model="editForm.actPlace" type="textarea" autosize ></el-input>
+				<el-form-item label="活动区域" prop="actPlace" label-width="100px" >
+					<el-input v-model="editForm.actPlace" type="textarea" autosize :disabled="!hasAuth('sys:core:save:actPlace')"></el-input>
 				</el-form-item>
 
 
-				<el-form-item   label="活动开始时间"   prop="actStartDate"   label-width="100px">
+				<el-form-item   label="活动开始时间"   prop="actStartDate"   label-width="100px" >
 		
-				<el-date-picker v-model="editForm.actStartDate" type="datetime" placeholder="选择日期时间"> </el-date-picker>
+				<el-date-picker v-model="editForm.actStartDate" type="datetime" placeholder="选择日期时间" :disabled="!hasAuth('sys:core:save:actStartDate')"> </el-date-picker>
 	</el-form-item>
 
-	<el-form-item label="活动时长" prop="actDuration" label-width="100px">
-					<el-input v-model="editForm.actDuration"  type="textarea" autosize ></el-input>
+	<el-form-item label="活动时长" prop="actDuration" label-width="100px" >
+					<el-input v-model="editForm.actDuration"  type="textarea" autosize :disabled="!hasAuth('sys:core:save:actDuration')"></el-input>
 				</el-form-item>
 			
-				<el-form-item label="活动部门" prop="assoId" label-width="100px">
-					<el-select v-model="editForm.assoId" placeholder="请选择活动部门">
+				<el-form-item label="活动部门" prop="assoId" label-width="100px" >
+					<el-select v-model="editForm.assoId" placeholder="请选择活动部门" :disabled="!hasAuth('sys:core:save:assoId')">
 						<el-option
 						v-for="item in actAsso"
 						:key="item.id"
@@ -298,8 +298,8 @@
 					</el-select>
 				</el-form-item>
 
-				<el-form-item label="活动对象" prop="actObjectId" label-width="100px">
-						<el-select v-model="editForm.actObjectId" placeholder="请选择活动部门">
+				<el-form-item label="活动对象" prop="actObjectId" label-width="100px" >
+						<el-select v-model="editForm.actObjectId" placeholder="请选择活动部门" :disabled="!hasAuth('sys:core:save:actObjectId')">
 						<el-option
 						v-for="item in actObject"
 						:key="item.id"
@@ -310,8 +310,8 @@
 
 
 				</el-form-item>
-					<el-form-item label="活动人数" prop="actNumber" label-width="100px">
-						<el-select v-model="editForm.actNumber" placeholder="请选择活动人数">
+					<el-form-item label="活动人数" prop="actNumber" label-width="100px" >
+						<el-select v-model="editForm.actNumber" placeholder="请选择活动人数" :disabled="!hasAuth('sys:core:save:actNumber')">
 						<el-option
 						v-for="item in actNumber"
 						:key="item.id"
@@ -320,20 +320,20 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-			<el-form-item label="活动目的" prop="actAim" label-width="100px">
-				<el-input v-model="editForm.actAim" type="textarea" autosize></el-input>
+			<el-form-item label="活动目的" prop="actAim" label-width="100px" >
+				<el-input v-model="editForm.actAim" type="textarea" autosize :disabled="!hasAuth('sys:core:save:actAim')"></el-input>
 			</el-form-item>
-				<el-form-item label="活动流程" prop="actProcess" label-width="100px">
-					<el-input v-model="editForm.actProcess" type="textarea" autosize></el-input>
+				<el-form-item label="活动流程" prop="actProcess" label-width="100px" >
+					<el-input v-model="editForm.actProcess" type="textarea" autosize :disabled="!hasAuth('sys:core:save:actProcess')"></el-input>
 				</el-form-item>
-				<el-form-item label="活动简介" prop="actMessage" label-width="100px">
-					<el-input v-model="editForm.actMessage" type="textarea" autosize></el-input>
+				<el-form-item label="活动简介" prop="actMessage" label-width="100px" >
+					<el-input v-model="editForm.actMessage" type="textarea" autosize :disabled="!hasAuth('sys:core:save:actMessage')"></el-input>
 				</el-form-item>
 				<el-form-item label="注意事项" prop="actWarn" label-width="100px">
-					<el-input v-model="editForm.actWarn" type="textarea" autosize></el-input>
+					<el-input v-model="editForm.actWarn" type="textarea" autosize :disabled="!hasAuth('sys:core:save:actWarn')"></el-input>
 				</el-form-item>
 				<el-form-item label="活动积分" prop="actIntegral" label-width="100px">
-					<el-input v-model="editForm.actIntegral" type="textarea" autosize  ></el-input>
+					<el-input v-model="editForm.actIntegral" type="textarea" autosize  :disabled="!hasAuth('sys:core:save:actIntegral')" ></el-input>
 				</el-form-item>
 
 				<el-form-item>

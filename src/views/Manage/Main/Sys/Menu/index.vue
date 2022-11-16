@@ -99,8 +99,8 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-				<el-form-item label="上级菜单" prop="parentId">
-					<el-select v-model="editForm.parentId" placeholder="请选择上级菜单">
+				<el-form-item label="上级菜单" prop="parentId" >
+					<el-select v-model="editForm.parentId" placeholder="请选择上级菜单" :disabled="!hasAuth('sys:menu:save:parentId')">
 						<template v-for="item in tableData">
 							<el-option :label="item.menuName" :value="item.id"></el-option>
 							<template v-for="child in item.children">
@@ -117,27 +117,27 @@
 					</el-select>
 				</el-form-item>
 
-				<el-form-item label="菜单名称" prop="menuName" label-width="100px">
-					<el-input v-model="editForm.menuName" autocomplete="off"></el-input>
+				<el-form-item label="菜单名称" prop="menuName" label-width="100px" >
+					<el-input v-model="editForm.menuName" autocomplete="off" :disabled="!hasAuth('sys:menu:save:menuName')"></el-input>
 				</el-form-item>
 
 				<el-form-item label="权限编码" prop="menuPerms" label-width="100px">
-					<el-input v-model="editForm.menuPerms" autocomplete="off"></el-input>
+					<el-input v-model="editForm.menuPerms" autocomplete="off"  :disabled="!hasAuth('sys:menu:save:menuPerms')"></el-input>
 				</el-form-item>
 
-				<el-form-item label="图标" prop="menuIcon" label-width="100px">
-					<el-input v-model="editForm.menuIcon" autocomplete="off"></el-input>
+				<el-form-item label="图标" prop="menuIcon" label-width="100px" >
+					<el-input v-model="editForm.menuIcon" autocomplete="off" :disabled="!hasAuth('sys:menu:save:menuIcon')"></el-input>
 				</el-form-item>
-				<el-form-item label="菜单URL" prop="menuPath" label-width="100px">
-					<el-input v-model="editForm.menuPath" autocomplete="off"></el-input>
+				<el-form-item label="菜单URL" prop="menuPath" label-width="100px" >
+					<el-input v-model="editForm.menuPath" autocomplete="off" :disabled="!hasAuth('sys:menu:save:menuPath')"></el-input>
 				</el-form-item>
 
-				<el-form-item label="菜单组件" prop="menuComponent" label-width="100px">
-					<el-input v-model="editForm.menuComponent" autocomplete="off"></el-input>
+				<el-form-item label="菜单组件" prop="menuComponent" label-width="100px" >
+					<el-input v-model="editForm.menuComponent" autocomplete="off" :disabled="!hasAuth('sys:menu:save:menuComponent')"></el-input>
 				</el-form-item>
 
 				<el-form-item label="类型" prop="menuType" label-width="100px">
-					<el-radio-group v-model="editForm.menuType">
+					<el-radio-group v-model="editForm.menuType"  :disabled="!hasAuth('sys:menu:save:menuType')">
 						<el-radio :label=0>目录</el-radio>
 						<el-radio :label=1>菜单</el-radio>
 						<el-radio :label=2>按钮</el-radio>
@@ -146,15 +146,15 @@
 					</el-radio-group>
 				</el-form-item>
 
-				<el-form-item label="状态" prop="menuStatu" label-width="100px">
-					<el-radio-group v-model="editForm.menuStatu">
+				<el-form-item label="状态" prop="menuStatu" label-width="100px" >
+					<el-radio-group v-model="editForm.menuStatu" :disabled="!hasAuth('sys:menu:save:menuStatu')">
 						<el-radio :label=0>禁用</el-radio>
 						<el-radio :label=1>正常</el-radio>
 					</el-radio-group>
 				</el-form-item>
 
-				<el-form-item label="排序号" prop="menuOrdernum" label-width="100px">
-					<el-input-number v-model="editForm.menuOrdernum" :min="1" label="排序号">1</el-input-number>
+				<el-form-item label="排序号" prop="menuOrdernum" label-width="100px" >
+					<el-input-number v-model="editForm.menuOrdernum" :min="1" label="排序号" :disabled="!hasAuth('sys:menu:save:menuOrdernum')">1</el-input-number>
 				</el-form-item>
 
 

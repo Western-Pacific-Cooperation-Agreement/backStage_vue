@@ -108,18 +108,18 @@
 
 			<el-form :model="editForm" :rules="editFormRules" ref="editForm" label-width="100px" class="demo-editForm">
 
-				<el-form-item label="部门名称" prop="assoName" label-width="100px">
-					<el-input v-model="editForm.assoName" autocomplete="off"></el-input>
+				<el-form-item label="部门名称" prop="assoName" label-width="100px" >
+					<el-input v-model="editForm.assoName" autocomplete="off" :disabled="!hasAuth('core:asso:save:assoName')"></el-input>
 				</el-form-item>
 
 				<!-- <el-form-item label="部门类型" prop="assotypeId" label-width="100px">
 					<el-input v-model="editForm.assotypeId" autocomplete="off"></el-input>
 				</el-form-item> -->
 
-				<el-form-item label="部门类型" prop="assotypeId" label-width="100px">
+				<el-form-item label="部门类型" prop="assotypeId" label-width="100px" >
 					<!-- <el-input v-model="editForm.assotypeId" autocomplete="off"></el-input> -->
 					<template>
-						<el-select v-model="editForm.assotypeId" placeholder="请选择">
+						<el-select v-model="editForm.assotypeId" placeholder="请选择" :disabled="!hasAuth('core:asso:save:assotypeId')">
 						  <el-option
 							v-for="item in assoTypeData"
 							:label="item.assoTypeName"
@@ -132,8 +132,8 @@
 
 				
 				  
-				<el-form-item label="部门人数" prop="remark" label-width="100px">
-					<el-input v-model="editForm.remark" autocomplete="off"></el-input>
+				<el-form-item label="部门人数" prop="remark" label-width="100px" >
+					<el-input v-model="editForm.remark" autocomplete="off" :disabled="!hasAuth('core:asso:save:remark')"></el-input>
 				</el-form-item>
 
 
